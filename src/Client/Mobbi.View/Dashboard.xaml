@@ -1,0 +1,185 @@
+﻿<Page
+    x:Name="DashboardPage"
+    x:Class="Mobbi.View.Dashboard"
+    DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
+        <CollectionViewSource
+            x:Name="SlidesCollectionViewSource"
+            Source="{Binding Slides}"
+            ItemsPath="Items"/>
+        <CollectionViewSource
+            x:Name="MainCategoriesCollectionViewSource"
+            Source="{Binding MainCategories}"
+            ItemsPath="Items"/>
+        <CollectionViewSource
+            x:Name="CategoriesExtendedCollectionViewSource"
+            Source="{Binding CategoriesExtended}"
+            IsSourceGrouped="true"
+            ItemsPath="Items"/>
+        <CollectionViewSource
+            x:Name="AllCategoriesCollectionViewSource"
+            Source="{Binding AllCategories}"
+            ItemsPath="Items"/>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Hub>
+            <Hub.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  x:Name="backButton" Margin="-1,-1,39,0" Command="{Binding NavigationHelper.GoBackCommand, ElementName=DashboardPage}"
+                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        VerticalAlignment="Top"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+                    <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Top"/>
+                </Grid>
+            </Hub.Header>
+
+            <HubSection Width="780" Margin="0,0,80,0">
+                <DataTemplate>
+                    <FlipView
+                        x:Name="BestIdeasFlipView"
+                        AutomationProperties.AutomationId="BestIdeasItemFlipView"
+                        AutomationProperties.Name="Best ideas as slides"
+                        ItemsSource="{Binding Source={StaticResource SlidesCollectionViewSource}}">
+                        <FlipView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </FlipView.ItemsPanel>
+                        <FlipView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Left" Width="780">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="80"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                                        <TextBlock Text="{Binding Title}"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}" Grid.Row="1">
+                                        <TextBlock Text="{Binding Title}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="60" Margin="15,0,15,0"/>
+                                        <TextBlock Text="{Binding OwnerSurname}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="60" Margin="15,0,15,0"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </FlipView.ItemTemplate>
+                    </FlipView>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Width="500" Header="Top categories">
+                <DataTemplate>
+                    <Grid Width="500">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <ListView
+                        x:Name="CategoriesListView"
+                        AutomationProperties.AutomationId="CategoriesItemListView"
+                        AutomationProperties.Name="Top categories"
+                        ItemsSource="{Binding Source={StaticResource MainCategoriesCollectionViewSource}}"
+                        SelectionMode="None"
+                        IsSwipeEnabled="false"
+                        IsItemClickEnabled="True"
+                        ItemClick="CategoryItemClicked">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,2">
+                                        <Button Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
+                                        AutomationProperties.Name="Category Title"
+                                        Style="{StaticResource TextBlockButtonStyle}" >
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Title}" Margin="0,-11,10,10" Style="{StaticResource BaseTextBlockStyle}" TextWrapping="NoWrap" />
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Button Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
+                        AutomationProperties.Name="Category Title"
+                        Style="{StaticResource TextBlockButtonStyle}" 
+                        Grid.Row="1"
+                        Click="AllCategoriesClicked">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="All categories" Margin="0,-11,10,10" Style="{StaticResource BaseTextBlockStyle}" TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            <HubSection>
+                <DataTemplate>
+                    <GridView
+                    x:Name="CategoriesExtendedGridView"
+                    AutomationProperties.AutomationId="MainCategoriesItemGridView"
+                    AutomationProperties.Name="Grouped Ideas"
+                    ItemsSource="{Binding Source={StaticResource CategoriesExtendedCollectionViewSource}}"
+                    SelectionMode="None"
+                    IsSwipeEnabled="false"
+                    IsItemClickEnabled="True"
+                    ItemClick="IdeaItemClicked">
+                        <!-- Main categories with few top items inside -->
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Left" Width="250" Height="250">
+                                    <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                                        <TextBlock Text="{Binding Title}"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                                        <TextBlock Text="{Binding Title}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="60" Margin="15,0,15,0"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid GroupPadding="0,0,70,0"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                        <GridView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,0,0,2">
+                                            <Button Foreground="{ThemeResource ApplicationHeaderForegroundThemeBrush}"
+                                            AutomationProperties.Name="Group Title"
+                                            Style="{StaticResource TextBlockButtonStyle}"
+                                            Click="CategoryClicked">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Title}" Margin="0,-11,10,10" Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="NoWrap" />
+                                                    <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-11,0,10" Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="NoWrap" />
+                                                </StackPanel>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </GridView.GroupStyle>
+                    </GridView>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
+    </Grid>
+</Page>

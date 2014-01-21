@@ -1,0 +1,29 @@
+﻿<Data>
+  <Groups>
+    <Group ExternalId="4A533C7B-F67C-4064-9BC9-E639FF365F3A" Title="Group 1 title" Description="Group 1 description">
+      <GroupItem ExternalId="F67FD19B-9756-429B-88E8-029238B297FF"/>
+      <GroupItem ExternalId="7B505DDB-7456-40E2-944A-2B9BEB90B203"/>
+      <GroupItem ExternalId="5EFC310B-BA10-4A41-A98A-F89A299A832F"/>
+      <GroupItem ExternalId="1D1406A3-F51E-4BDC-96D6-FD33ABADE770"/>
+      <GroupItem ExternalId="CF85182E-08FF-4F77-A6B7-F3E760D86EB0"/>
+      <GroupItem ExternalId="6628231D-0254-443E-898D-4E9EBB7C10D0"/>
+    </Group>
+    <Group ExternalId="ABFAD68C-7DEB-4587-98D6-447FE7575093" Title="Group 2 title" Description="Group 2 description">
+      <GroupItem ExternalId="8B991AAA-48BE-4607-B3AC-EAACE7D3836D"/>
+      <GroupItem ExternalId="A6952E1F-C8B1-4CC0-A382-4640593A7B24"/>
+      <GroupItem ExternalId="42E064EE-C92F-4731-B5D6-AD4574D9BAE7"/>
+      <GroupItem ExternalId="6628231D-0254-443E-898D-4E9EBB7C10D0"/>
+    </Group>
+  </Groups>
+  <Ideas>
+    <Idea ExternalId="F67FD19B-9756-429B-88E8-029238B297FF" OwnerName="FirstName" OwnerSurname="SomeSurname" Title="Idea title 1" Description="Idea description 1" Status="New"/>
+    <Idea ExternalId="7B505DDB-7456-40E2-944A-2B9BEB90B203" OwnerName="FirstName" OwnerSurname="SomeSurname" Title="Idea title 2" Description="Idea description 2" Status="Discussed"/>
+    <Idea ExternalId="5EFC310B-BA10-4A41-A98A-F89A299A832F" OwnerName="FirstName" OwnerSurname="SomeSurname" Title="Idea title 3" Description="Idea description 3" Status="Discussed"/>
+    <Idea ExternalId="1D1406A3-F51E-4BDC-96D6-FD33ABADE770" OwnerName="SecondName" OwnerSurname="SomeSurname" Title="Idea title 4" Description="Idea description 4" Status="Approved"/>
+    <Idea ExternalId="CF85182E-08FF-4F77-A6B7-F3E760D86EB0" OwnerName="SecondName" OwnerSurname="SomeSurname" Title="Idea title 5" Description="Idea description 5" Status="Implementing"/>
+    <Idea ExternalId="6628231D-0254-443E-898D-4E9EBB7C10D0" OwnerName="SecondName" OwnerSurname="SomeSurname" Title="Idea title 6" Description="Idea description 6" Status="New"/>
+    <Idea ExternalId="8B991AAA-48BE-4607-B3AC-EAACE7D3836D" OwnerName="SecondName" OwnerSurname="SomeSurname" Title="Idea title 7" Description="Idea description 7" Status="Completed"/>
+    <Idea ExternalId="A6952E1F-C8B1-4CC0-A382-4640593A7B24" OwnerName="SecondName" OwnerSurname="SomeSurname" Title="Idea title 8" Description="Idea description 8" Status="Approved"/>
+    <Idea ExternalId="42E064EE-C92F-4731-B5D6-AD4574D9BAE7" OwnerName="SecondName" OwnerSurname="SomeSurname" Title="Idea title 9" Description="Idea description 9" Status="Approved"/>
+  </Ideas>
+</Data>
